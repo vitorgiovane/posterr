@@ -6,7 +6,7 @@ class UserTest < ActiveSupport::TestCase
     @new_user = User.new
   end
 
-  test 'should be exists user model' do
+  test 'should be exists User model' do
     assert Object.const_defined?('User'), "User model don't exists yet"
   end
 
@@ -26,6 +26,6 @@ class UserTest < ActiveSupport::TestCase
 
   test 'should save user with username valid format' do
     @new_user.username = 'vitorgiovane'
-    assert @new_user.save, 'Failed to save the user with valida format username'
+    assert @new_user.save, 'Failed to save the user with valid format username'
   end
 end

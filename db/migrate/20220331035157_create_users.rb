@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :username
 
       t.timestamps
+      t.datetime :deleted_at
     end
   end
 end
