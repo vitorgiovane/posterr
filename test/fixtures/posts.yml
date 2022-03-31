@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  content: MyString
+  content: Mauris id elit est. Fusce eget ornare leo, sit amet molestie nulla.
   user: one
-  deleted_at: 2022-03-31 13:51:06
+  deleted_at:
 
 two:
-  content: MyString
+  content: Pellentesque sed arcu a turpis vestibulum posuere.
   user: two
-  deleted_at: 2022-03-31 13:51:06
+  deleted_at:
