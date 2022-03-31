@@ -17,8 +17,8 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install
 RUN chown -R user:user /box
 
-# COPY . .
 
 COPY --chown=user:user . .
+# RUN rake db:create RAILS_ENV=test
 
 USER $USER_ID

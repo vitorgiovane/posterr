@@ -1,4 +1,11 @@
-version: "3.9"
+version: "3.8"
+
+x-database_environment_data: &database_environment_data
+  environment:
+  - POSTGRES_DB=${DATABASE_NAME}
+  - POSTGRES_USER=${DATABASE_USER}
+  - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+
 services:
   postgres:
     container_name: "${PROJECT_PREFIX}-postgres"
@@ -12,10 +19,13 @@ services:
       - ./docker/postgres/data:/var/lib/postgresql/data
     ports:
       - "${DATABASE_EXTERNAL_PORT}:5432"
-    environment:
-      - POSTGRES_DB=${DATABASE_NAME}
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    <<: *database_environment_data
+  postgres_test:
+    container_name: "${PROJECT_PREFIX}-postgres-test"
+    image: postrr_postgres
+    ports:
+      - "${DATABASE_TEST_EXTERNAL_PORT}:5432"
+    <<: *database_environment_data
   ruby:
     container_name: "${PROJECT_PREFIX}-ruby"
     build:
