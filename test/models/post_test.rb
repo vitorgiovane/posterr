@@ -10,8 +10,17 @@ class PostTest < ActiveSupport::TestCase
     assert Object.const_defined?('Post'), "Post model don't exists yet"
   end
 
-  test 'should not save post without a content' do
-    assert_not @new_post.save, 'Saved the post without a content'
+  test 'should save post without a content' do
+    @new_post.user = users(:one)
+    @new_post.parent = posts(:one)
+    assert @new_post.save, "Don't saved the post without a content"
+  end
+
+  test 'should save post with blank content and is a repost' do
+    @new_post.content = ''
+    @new_post.user = users(:one)
+    @new_post.parent = posts(:one)
+    assert @new_post.save, "Don't Saved the post with blank content"
   end
 
   test 'should save post with a valid content' do
@@ -36,12 +45,6 @@ class PostTest < ActiveSupport::TestCase
     assert_not @new_post.save, 'Saved the post with more then 777 characters in the content'
   end
 
-  test 'should not save post with blank content' do
-    @new_post.content = ''
-    @new_post.user = users(:one)
-    assert_not @new_post.save, 'Saved the post with blank content'
-  end
-
   test 'should not save post without user_id' do
     @new_post.content = @valid_content
     assert_not @new_post.save, 'Saved the post without user_id'
@@ -51,5 +54,10 @@ class PostTest < ActiveSupport::TestCase
     @new_post.content = @valid_content
     @new_post.user = users(:one)
     assert @new_post.save, "Don't saved the post with valid content and user"
+  end
+
+  test 'should not save a post without a content when is not a repost' do
+    @new_post.user = users(:one)
+    assert_not @new_post.save, 'Saved post without content when is not a respost'
   end
 end

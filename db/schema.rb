@@ -17,9 +17,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_31_135106) do
   create_table "posts", force: :cascade do |t|
     t.string "content", limit: 777
     t.bigint "user_id", null: false
+    t.bigint "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.index ["parent_id"], name: "index_posts_on_parent_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -30,5 +32,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_31_135106) do
     t.datetime "deleted_at"
   end
 
+  add_foreign_key "posts", "posts", column: "parent_id"
   add_foreign_key "posts", "users"
 end
