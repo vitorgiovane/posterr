@@ -45,9 +45,9 @@ class PostTest < ActiveSupport::TestCase
     assert_not @new_post.save, 'Saved the post with more then 777 characters in the content'
   end
 
-  test 'should not save post without user_id' do
+  test 'should not save post without user' do
     @new_post.content = @valid_content
-    assert_not @new_post.save, 'Saved the post without user_id'
+    assert_not @new_post.save, 'Saved the post without user'
   end
 
   test 'should save post with valid content and valid user' do
@@ -59,5 +59,12 @@ class PostTest < ActiveSupport::TestCase
   test 'should not save a post without a content when is not a repost' do
     @new_post.user = users(:one)
     assert_not @new_post.save, 'Saved post without content when is not a respost'
+  end
+
+  test 'should not save a post when user exceeded the daily post amount' do
+    4.times { Post.create(user: users(:one), content: @valid_content) }
+
+    post = Post.create(user: users(:one), content: @valid_content)
+    assert_equal('Exceeded the posts amount today', *post.errors.messages[:general])
   end
 end
