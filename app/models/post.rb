@@ -8,4 +8,6 @@ class Post < ApplicationRecord
   validates_length_of :content, maximum: 777, allow_blank: false, unless: :parent
   validates :user, presence: true
   validates_with PostValidator
+
+  per_page = 10
 end
