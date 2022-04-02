@@ -11,3 +11,7 @@ one:
 two:
   follower_user: two
   followed_user: one
+
+three:
+  follower_user: three
+  followed_user: two

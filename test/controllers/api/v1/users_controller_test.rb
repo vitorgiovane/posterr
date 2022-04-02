@@ -38,4 +38,31 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     bad_request_status_code = 400
     assert_response bad_request_status_code
   end
+
+  test 'should exists show user data endpoint' do
+    get "/api/v1/users/#{users(:two).id}"
+
+    assert_response :success
+  end
+
+  test 'should user data endpoint return correct data' do
+    get "/api/v1/users/#{users(:two).id}"
+
+    expected_attributes_keys = [
+      :username,
+      :date_joined_posterr,
+      :number_of_followers,
+      :number_of_followings,
+      :number_of_posts_created,
+      :followed_by_the_current_user
+    ]
+
+    assert response_contains_the_attributes_keys(response.parsed_body, expected_attributes_keys)
+  end
+
+  private
+
+  def response_contains_the_attributes_keys(response, attributes_keys)
+    attributes_keys.all?(&response.symbolize_keys.method(:key?))
+  end
 end

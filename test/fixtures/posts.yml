@@ -9,3 +9,8 @@ two:
   content: Pellentesque sed arcu a turpis vestibulum posuere.
   user: two
   deleted_at:
+
+three:
+  content: Pellentesque eget mi tincidunt, vestibulum neque sit amet, pulvinar risus.
+  user: two
+  deleted_at:

@@ -1,5 +1,10 @@
 class Api::V1::UsersController < Api::V1::ApiController
-  before_action :set_followed_user, only: [:follow, :unfollow]
+  before_action :set_user, only: [:show, :follow, :unfollow]
+
+  def show
+    @user.define_relationship_with_current_user(current_user)
+    render json: @user
+  end
 
   def follow
     following = Following.create(following_params)
@@ -21,11 +26,11 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   private
 
-  def set_followed_user
-    @followed_user = User.find(params[:id])
+  def set_user
+    @user = User.find(params[:id])
   end
 
   def following_params
-    { follower_user: current_user, followed_user: @followed_user }
+    { follower_user: current_user, followed_user: @user }
   end
 end
