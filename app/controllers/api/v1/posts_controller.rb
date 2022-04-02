@@ -1,6 +1,6 @@
 class Api::V1::PostsController < Api::V1::ApiController
   def index
-    posts = Post.paginate(page: page, per_page: per_page).order('id DESC')
+    posts = Post.paginate(page: page, per_page: per_page).order('created_at DESC')
 
     render json: posts
   end

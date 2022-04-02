@@ -2,7 +2,7 @@ require "test_helper"
 
 class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
   test 'should create a following' do
-    post "/api/v1/users/#{users(:four).id}/follow"
+    post "#{base_path}/#{users(:four).id}/follow"
 
     followed_user_id = response.parsed_body['followed_user_id']
 
@@ -11,7 +11,7 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not create a following when try follow himself' do
-    post "/api/v1/users/#{users(:three).id}/follow"
+    post "#{base_path}/#{users(:three).id}/follow"
 
     expected_response_message = 'The user cannot follow himself'
     received_response_message = response.parsed_body['errors'].first
@@ -22,8 +22,8 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should unfollow user' do
-    post "/api/v1/users/#{users(:four).id}/follow"
-    delete "/api/v1/users/#{users(:four).id}/unfollow"
+    post "#{base_path}/#{users(:four).id}/follow"
+    delete "#{base_path}/#{users(:four).id}/unfollow"
 
     expected_response_message = 'The user has been unfollowed'
     received_response_message = response.parsed_body['message']
@@ -33,20 +33,20 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not unfollow a user that is not followed' do
-    delete "/api/v1/users/#{users(:four).id}/unfollow"
+    delete "#{base_path}/#{users(:four).id}/unfollow"
 
     bad_request_status_code = 400
     assert_response bad_request_status_code
   end
 
   test 'should exists show user data endpoint' do
-    get "/api/v1/users/#{users(:two).id}"
+    get "#{base_path}/#{users(:two).id}"
 
     assert_response :success
   end
 
   test 'should user data endpoint return correct data' do
-    get "/api/v1/users/#{users(:two).id}"
+    get "#{base_path}/#{users(:two).id}"
 
     expected_attributes_keys = [
       :username,
@@ -60,7 +60,21 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     assert response_contains_the_attributes_keys(response.parsed_body, expected_attributes_keys)
   end
 
+  test 'should returns the latest 5 posts of the current user' do
+    get "#{base_path}/#{users(:two).id}/posts"
+
+    expected_number_of_posts = 5
+
+    assert_response :success
+    assert_same expected_number_of_posts, response.parsed_body.size, 'Failed to return the latest posts'
+  end
+
   private
+
+  def base_path
+    '/api/v1/users'
+  end
+
 
   def response_contains_the_attributes_keys(response, attributes_keys)
     attributes_keys.all?(&response.symbolize_keys.method(:key?))

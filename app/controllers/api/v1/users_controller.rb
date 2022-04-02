@@ -1,9 +1,13 @@
 class Api::V1::UsersController < Api::V1::ApiController
-  before_action :set_user, only: [:show, :follow, :unfollow]
+  before_action :set_user, only: [:show, :posts, :follow, :unfollow]
 
   def show
     @user.define_relationship_with_current_user(current_user)
     render json: @user
+  end
+
+  def posts
+    render json: @user.posts.paginate(page: page, per_page: 5).order('created_at DESC')
   end
 
   def follow
