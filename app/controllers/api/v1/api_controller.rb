@@ -14,5 +14,9 @@ module Api::V1
     def current_user
       User.first
     end
+
+    def boolean_cast(value)
+      ActiveModel::Type::Boolean.new.cast(value)
+    end
   end
 end
