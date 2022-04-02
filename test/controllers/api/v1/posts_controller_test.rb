@@ -19,8 +19,10 @@ class Api::V1::PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not create a post when parent_id is invalid' do
-    post '/api/v1/posts', params: { content: 'Lorem ipsum...', parent_id: 999 }
+    nonexistent_post_id = 999
+    post '/api/v1/posts', params: { content: 'Lorem ipsum...', parent_id: nonexistent_post_id }
 
-    assert_response 400
+    bad_request_status_code = 400
+    assert_response bad_request_status_code
   end
 end
