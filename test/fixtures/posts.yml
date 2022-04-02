@@ -7,12 +7,12 @@ one:
 
 two:
   content: Pellentesque sed arcu a turpis vestibulum posuere.
-  user: two
+  user: four
   deleted_at:
 
 three:
   content: Pellentesque eget mi tincidunt, vestibulum neque sit amet, pulvinar risus.
-  user: two
+  user: three
   deleted_at:
 
 four:
@@ -43,4 +43,9 @@ eight:
 nine:
   content: Nullam venenatis diam et ligula rutrum, sed sodales nunc tempor. 
   user: two
+  deleted_at:
+
+ten:
+  content: Morbi blandit justo semper leo consectetur, euismod molestie nibh interdum.
+  user: four
   deleted_at:
