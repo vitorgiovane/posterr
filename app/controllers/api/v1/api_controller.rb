@@ -10,5 +10,9 @@ module Api::V1
 
       params[:per_page]
     end
+
+    def current_user
+      User.first
+    end
   end
 end
