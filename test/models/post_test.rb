@@ -65,6 +65,6 @@ class PostTest < ActiveSupport::TestCase
     4.times { Post.create(user: users(:one), content: @valid_content) }
 
     post = Post.create(user: users(:one), content: @valid_content)
-    assert_equal('Exceeded the posts amount today', *post.errors.messages[:general])
+    assert_equal('Exceeded the posts amount today', *post.errors.messages[:errors])
   end
 end

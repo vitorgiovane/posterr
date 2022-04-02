@@ -9,7 +9,7 @@ class FollowingValidator < ActiveModel::Validator
   def validate_same_follower_and_followed_user(record)
     return if record.follower_user.id != record.followed_user.id
 
-    record.errors.add :following, "The user cannot follow himself"
+    record.errors.add :errors, "The user cannot follow himself"
   end
 
   def validate_already_follow_user(record)
@@ -17,6 +17,6 @@ class FollowingValidator < ActiveModel::Validator
 
     return if following.blank?
 
-    record.errors.add :following, "The user is already followed"
+    record.errors.add :errors, "The user is already followed"
   end
 end

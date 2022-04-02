@@ -15,7 +15,7 @@ class PostValidator < ActiveModel::Validator
     accepted_posts_amount = 5
     return if today_posts.size < accepted_posts_amount
 
-    record.errors.add :general, "Exceeded the posts amount today"
+    record.errors.add :errors, "Exceeded the posts amount today"
   end
 
   def validate_parent_existence(record)
@@ -24,6 +24,6 @@ class PostValidator < ActiveModel::Validator
     return if Post.find_by_id record.parent_id
 
     failed_repost_message = "Unable to repost because it was not possible to find a post with the informed parent_id"
-    record.errors.add :repost, failed_repost_message
+    record.errors.add :errors, failed_repost_message
   end
 end
