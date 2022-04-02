@@ -4,10 +4,6 @@ class Api::V1::PostsController < Api::V1::ApiController
 
     render json: posts
   end
-  
-  def show
-    render json: { message: 'show' }
-  end
 
   def create
     post = Post.create(create_params)
