@@ -24,8 +24,8 @@ class UserTest < ActiveSupport::TestCase
     assert_not @new_user.save, 'Saved the user with username format invalid'
   end
 
-  test 'should save user with username valid format' do
-    @new_user.username = 'vitorgiovane'
+  test 'should save user with alphanumeric username valid format' do
+    @new_user.username = 'vitorgiovane80'
     assert @new_user.save, 'Failed to save the user with valid format username'
   end
 end

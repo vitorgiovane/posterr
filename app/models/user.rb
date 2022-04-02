@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :given_follows, foreign_key: 'follower_user_id', class_name: 'Following'
   has_many :followings, through: :given_follows, source: :followed_user
 
-  validates :username, length: {maximum: 14}, allow_blank: false, format: { with: /\A[a-z]+_?[a-z]+\z/ }
+  validates :username, length: {maximum: 14}, allow_blank: false, format: { with: /\A[a-zA-Z0-9]+\z/ }
 
   def follows_the_user?(user)
     followings.find_by_id(user.id).present?
