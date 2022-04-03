@@ -119,6 +119,21 @@ If it is desired to filter replies by only who is followed, when I receive the p
 
 <br>
 
+## 🔷 Critique
+
+### What would i improve if i had more time
+- Would create a robust logging system. It would be very useful to analyze problems that occurred in the production environment.
+- I would create services classes to perform each single operation, such as creating a post. This would allow me to take the record creation logic out of the controllers.
+- I would adopt a linter to adopt a code writing pattern for the entire development team involved in the project.
+- I would add Redis to cache the content of the most repeated queries.
+
+<br>
+
+### Scaling
+If this project grew and had many users and posts, surely the database would be the first to fail. As this application does not do high data processing, nor file manipulation, there would not be a problem of processing or storing data first. For that reason, to scale this product I would initially think about creating a caching scheme by adding Redis. It would search for the most repeated queries and cache content that doesn't need so much revalidation. As is the case with current user details, these are data that do not change constantly. At a future time, I would consider dividing the application into microservices. Separating user handling from post handling.
+
+<br>
+
 ## 📋 License
 This project is under the MIT license. See LICENSE at project root for more information.
 
