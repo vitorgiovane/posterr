@@ -1,4 +1,9 @@
-<p align="center" style="margin-top: 50px">
+<h4 align="center" style="margin-top: 25px">
+  Developed by <b>Vitor Giovane</b> <span>&#x1f1e7;&#x1f1f7;</span>
+
+**[Talk to me 😁👍](https://www.linkedin.com/in/vitorgiovane)** 
+</h2>
+<p align="center">
   <br>
   <img height="120px" alt="Company logo" src="https://res.cloudinary.com/vitorgiovane/image/upload/v1648955956/posterr/posterr_ctr2gx.png" />
 </p>
@@ -86,6 +91,31 @@ This project was developed with the following technologies:
 - Postman ____________ 9.15.10
 - VS Code _____________ 1.66.0
 - Git ___________________ 2.35.1
+
+<br>
+
+## 🔷 Planning
+
+### Questions about implementation
+- What is the character limit for each reply?
+- Will there be any daily replies limit per user, as there is for posts?
+- Will there be pagination for the replies? If yes, how many replies should be displayed at a time?
+- Is there a possibility of interaction with a reply? That is, can any user make a reply of a reply?
+- As with the homepage, will a user be able to filter replies only from who they follow?
+- What will be the order in which the replies are displayed? Is this ordering fixed or can the user reorder by other criteria?
+### How would i solve this problem
+
+It will be necessary to create a specific table in the database for the replies, the name of this table will be "replies". This table will have, in addition to the column for the content of the reply, two foreign keys: one with the users table, to identify the author of the reply, and another with the posts table, to identify which post the reply belongs to. The relationship of the replies table with the users table will be from N to 1 respectively, since a user can have multiple replies, but a reply only belongs to one user. The ratio of the replies table to the posts table will be 1 to 1.
+
+As I applied TDD in this project, I would start the implementation of this functionality by creating unit tests for the Reply model and integration tests for the PostsController controller, since the replies would be associated with a post, which eliminates the existence of a specific controller for the replies.
+
+It would be necessary to create a validator class for the replies, ReplyValidator. Assuming that there will be a character limit per reply and a limit of daily replies I will create two validations in the ReplyValidator and include this class in Reply model class.
+
+If the reply of reply is possible, it would be necessary to create a relationship between the replies table and itself, establishing a parent_id primary key that would store the id of the reply to which the new reply refers.
+
+You will need to change the current post listing endpoint, located in the index method of the PostsController. This endpoint will now accept a parameter named include_replies. When this parameter is passed with the value "true", the replies will be included in each post. A reply serialization file will be created and the post serialization file will be changed to include an array of replies.
+
+If it is desired to filter replies by only who is followed, when I receive the parameter "only_the_followed" in the request, I will apply a scope previously defined in the Reply model class, which will filter the replies from the users followed by the current user.
 
 <br>
 
