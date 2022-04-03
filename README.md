@@ -68,8 +68,10 @@ To plan and manage the tasks of this project, I created a board in Trello and ad
    GROUP_ID=${id -g}
    ```
 4. In a terminal at the root of the project run `docker-compose up -d --build` to build an run the containers.
-5. To populate the database with some sample data for users, posts and followers, run: `docker-compose run ruby rake db:seed`.
-6. Now, access the API documentation, click on the button located on the top right Run in Postman and start consuming the API. endpoints. API documentation is located at:
+5. After, run `docker-compose run ruby rake db:migrate` to execute the pending migrations and update database.
+6. To populate the database with some sample data for users, posts and followers, run: `docker-compose run ruby rake db:seed`.
+7. The API should now be available on the port defined in the API_EXTERNAL_PORT variable in the `.env`. If your .env is similar to `.env.example`, the API should be accessible at: `http://localhost:5010`.
+8. Access the API documentation, click on the button located on the top right Run in Postman and start consuming the API endpoints. API documentation is located at:
    - https://documenter.getpostman.com/view/3822165/UVyswvMg.
 
 <br>
